@@ -19,23 +19,23 @@ import CS2114.*;
  */
 public class Glyph {
 
-    public TextShape titleShape;
-    public TextShape artistShape;
+    private TextShape titleShape;
+    private TextShape artistShape;
 
-    public Shape l1Shape;
-    public Shape r1Shape;
-    public Shape l2Shape;
-    public Shape r2Shape;
-    public Shape l3Shape;
-    public Shape r3Shape;
-    public Shape l4Shape;
-    public Shape r4Shape;
+    private Shape l1Shape;
+    private Shape r1Shape;
+    private Shape l2Shape;
+    private Shape r2Shape;
+    private Shape l3Shape;
+    private Shape r3Shape;
+    private Shape l4Shape;
+    private Shape r4Shape;
 
-    public Shape glyphBlackBar;
-    public boolean initialized;
+    private Shape glyphBlackBar;
+    private boolean initialized;
 
 
-    /**
+    /** 
      * Constructor for Glyph
      */
     public Glyph() {
@@ -160,9 +160,9 @@ public class Glyph {
                 throw new IllegalArgumentException(
                     "Invalid Representation pass to Glyph");
         }
-    }
+    } 
 
-
+ 
     /**
      * Adds the glyph to the window
      * 

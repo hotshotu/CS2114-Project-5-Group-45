@@ -44,7 +44,7 @@ public class Key {
         keyName3 = new TextShape(620, 155, "Sports", Color.YELLOW);
         keyName4 = new TextShape(620, 170, "Music", Color.GREEN);
 
-        keySong = new TextShape(640, 190, "Song Title");
+        keySong = new TextShape(640, 190, "Song Title"); 
         keyHeard = new TextShape(620, 215, "Heard");
         keyLiked = new TextShape(685, 215, "Likes");
         keyBlackBox = new Shape(610, 100, 120, 140, Color.BLACK);
@@ -64,7 +64,9 @@ public class Key {
 
     /**
      * Updates the key for a given representation
-     * 
+     *  
+     *  
+     *  
      * @param rep
      *            The representation to be updated to
      */
@@ -91,7 +93,7 @@ public class Key {
                 keyName3.setText("Other US");
                 keyName4.setText("Outside US");
                 break;
-            default:
+            default: 
                 throw new IllegalArgumentException(
                     "Invalid Representation pass to Key");
         }

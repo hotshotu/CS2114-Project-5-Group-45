@@ -36,7 +36,7 @@ public class SongNodeTest extends TestCase {
         node2 = new SongNode(song2);
     }
 
-
+ 
     /**
      * Tests all of the methods in SongNode
      */

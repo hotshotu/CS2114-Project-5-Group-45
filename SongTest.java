@@ -72,7 +72,7 @@ public class SongTest extends TestCase {
         assertEquals(1, hobby[6]);
         assertEquals(1, hobby[7]);
         assertEquals(1, major[0]);
-        assertEquals(1, major[1]);
+        assertEquals(1, major[1]); 
         assertEquals(1, major[2]);
         assertEquals(1, major[3]);
         assertEquals(1, major[4]);

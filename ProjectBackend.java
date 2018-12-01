@@ -129,14 +129,14 @@ public class ProjectBackend {
             }
             else if (params[3].equals("Outside of United States")) {
                 region = RegionEnum.OUTSIDEUS;
-            }
+            } 
 
             if (params[4].equals("reading")) {
                 hobby = HobbyEnum.READ;
             }
             else if (params[4].equals("art")) {
                 hobby = HobbyEnum.ART;
-            }
+            } 
             else if (params[4].equals("sports")) {
                 hobby = HobbyEnum.SPORTS;
             }

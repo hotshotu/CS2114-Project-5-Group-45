@@ -27,10 +27,10 @@ public class ProjectBackendTest extends TestCase {
          * Nothing to set up
          */
     }
-
+ 
 
     /**
-     * Tests all of the methods in ProjectBackend
+     * Tests all of the methods in ProjectBackend 
      * 
      * @throws FileNotFoundException
      */
@@ -40,7 +40,7 @@ public class ProjectBackendTest extends TestCase {
 
         backend.sortSongs(SortEnum.TITLE);
         backend.sortSongs(SortEnum.ARTIST);
-        backend.sortSongs(SortEnum.YEAR);
+        backend.sortSongs(SortEnum.YEAR); 
         backend.sortSongs(SortEnum.GENRE);
 
         assertEquals(209, backend.getNumReps());

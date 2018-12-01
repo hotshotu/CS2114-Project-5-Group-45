@@ -24,8 +24,8 @@ public class Input {
      * @param args
      *            The input files
      * @throws FileNotFoundException
-     */
+     */ 
     public static void main(String[] args) throws FileNotFoundException {
-        new ProjectWindow(args);
+        GUIProjectWindow window = new GUIProjectWindow(args);
     }
 }

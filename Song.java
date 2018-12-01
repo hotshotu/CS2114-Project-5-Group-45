@@ -215,12 +215,12 @@ public class Song {
     /**
      * Getter method for the heard and liked numbers of a given representation
      * 
-     * @param RepE
+     * @param repE
      *            The representation to be returned
      * @return Returns the corresponding array
      */
-    public int[] getRepresentation(RepresentationEnum RepE) {
-        switch (RepE) {
+    public int[] getRepresentation(RepresentationEnum repE) {
+        switch (repE) {
             case HOBBY:
                 return hobby;
             case MAJOR:

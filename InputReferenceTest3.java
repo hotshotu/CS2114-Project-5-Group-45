@@ -136,11 +136,11 @@ public class InputReferenceTest3 extends student.TestCase {
         while (fileData.hasNextLine()) {
             outputTitleGenreHobby += fileData.nextLine() + "\n";
         }
-
+        System.out.print(outputTitleGenreHobby);
         assertFuzzyEquals("Output not as expected for input files "
             + "MusicSurveyDataNoGenreRepeats.csv and "
             + "SongListNoGenreRepeats.csv", outputTitleGenreHobby, systemOut()
-                .getHistory());
+                .getHistory()); 
 
     }
 
