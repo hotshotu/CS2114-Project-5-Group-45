@@ -29,7 +29,7 @@ public class LinkedSongTest extends TestCase {
     public void setUp() {
         Song song1 = new Song("A", "B", 0, "C");
         Song song2 = new Song("X", "Post Y", 1, "Z");
-        node1 = new SongNode(song1); 
+        node1 = new SongNode(song1);
         node2 = new SongNode(song2);
         songs = new LinkedSong();
         songs.add(node1);
@@ -47,7 +47,7 @@ public class LinkedSongTest extends TestCase {
     }
 
 
-    /** 
+    /**
      * Tests the getIndex method
      */
     public void testGetIndex() {

@@ -24,8 +24,16 @@ public class Input {
      * @param args
      *            The input files
      * @throws FileNotFoundException
-     */ 
+     */
     public static void main(String[] args) throws FileNotFoundException {
-        GUIProjectWindow window = new GUIProjectWindow(args);
+        String[] temp = new String[2];
+        if (args == null || args.length != 2) {
+            temp[0] = "MusicSurveyData2018F.csv";
+            temp[0] = "SongList2018F.csv";
+        }
+        else {
+            temp = args;
+        }
+        new ProjectWindowGUI(temp);
     }
 }

@@ -20,7 +20,6 @@ import java.util.Scanner;
 public class ProjectBackend {
 
     private LinkedSong songs;
-    private int numResponse;
 
 
     /**
@@ -32,7 +31,6 @@ public class ProjectBackend {
      */
     public ProjectBackend(String[] args) throws FileNotFoundException {
         songs = new LinkedSong();
-        numResponse = 0;
         loadSongs(args[1]);
         loadSurvey(args[0]);
     }
@@ -45,16 +43,6 @@ public class ProjectBackend {
      */
     public LinkedSong getSongs() {
         return songs;
-    }
-
-
-    /**
-     * Getter method for the number of respondents
-     * 
-     * @return Returns the number of people who responded
-     */
-    public int getNumReps() {
-        return numResponse;
     }
 
 
@@ -99,60 +87,73 @@ public class ProjectBackend {
             String line = file.nextLine();
             String[] params = line.split(",", -1);
 
-            HobbyEnum hobby = null;
-            MajorEnum major = null;
-            RegionEnum region = null;
-            numResponse++;
+            if (!params[2].equals("") && !params[3].equals("") && !params[4]
+                .equals("")) {
 
-            if (params[2].equals("Math or CMDA")) {
-                major = MajorEnum.MATHCDMA;
-            }
-            else if (params[2].equals("Computer Science")) {
-                major = MajorEnum.COMPSCI;
-            }
-            else if (params[2].equals("Other Engineering")) {
-                major = MajorEnum.OTHERENG;
-            }
-            else if (params[2].equals("Other")) {
-                major = MajorEnum.OTHER;
-            }
+                HobbyEnum hobby = null;
+                MajorEnum major = null;
+                RegionEnum region = null;
 
-            if (params[3].equals("Northeast")) {
-                region = RegionEnum.NEUS;
-            }
-            else if (params[3].equals("Southeast")) {
-                region = RegionEnum.SEUS;
-            }
-            else if (params[3].equals(
-                "United States (other than Southeast or Northwest)")) {
-                region = RegionEnum.OTHERUS;
-            }
-            else if (params[3].equals("Outside of United States")) {
-                region = RegionEnum.OUTSIDEUS;
-            } 
+                if (params[2].equals("Math or CMDA")) {
+                    major = MajorEnum.MATHCDMA;
+                }
+                else if (params[2].equals("Computer Science")) {
+                    major = MajorEnum.COMPSCI;
+                }
+                else if (params[2].equals("Other Engineering")) {
+                    major = MajorEnum.OTHERENG;
+                }
+                else if (params[2].equals("Other")) {
+                    major = MajorEnum.OTHER;
+                }
 
-            if (params[4].equals("reading")) {
-                hobby = HobbyEnum.READ;
-            }
-            else if (params[4].equals("art")) {
-                hobby = HobbyEnum.ART;
-            } 
-            else if (params[4].equals("sports")) {
-                hobby = HobbyEnum.SPORTS;
-            }
-            else if (params[4].equals("music")) {
-                hobby = HobbyEnum.MUSIC;
-            }
+                if (params[3].equals("Northeast")) {
+                    region = RegionEnum.NEUS;
+                }
+                else if (params[3].equals("Southeast")) {
+                    region = RegionEnum.SEUS;
+                }
+                else if (params[3].equals(
+                    "United States (other than Southeast or Northwest)")) {
+                    region = RegionEnum.OTHERUS;
+                }
+                else if (params[3].equals("Outside of United States")) {
+                    region = RegionEnum.OUTSIDEUS;
+                }
 
-            for (int i = 5; i < params.length; i++) {
-                if (params[i].equals("Yes")) {
-                    if (i % 2 == 1) {
-                        songs.getIndex((i - 5) / 2).getData().addYes(hobby,
-                            major, region, HorLEnum.HEARD);
+                if (params[4].equals("reading")) {
+                    hobby = HobbyEnum.READ;
+                }
+                else if (params[4].equals("art")) {
+                    hobby = HobbyEnum.ART;
+                }
+                else if (params[4].equals("sports")) {
+                    hobby = HobbyEnum.SPORTS;
+                }
+                else if (params[4].equals("music")) {
+                    hobby = HobbyEnum.MUSIC;
+                }
+
+                for (int i = 5; i < params.length; i++) {
+                    if (params[i].equals("Yes")) {
+                        if (i % 2 == 1) {
+                            songs.getIndex((i - 5) / 2).getData().add(hobby,
+                                major, region, HorLEnum.HEARD, YorNEnum.YES);
+                        }
+                        else {
+                            songs.getIndex((i - 5) / 2).getData().add(hobby,
+                                major, region, HorLEnum.LIKED, YorNEnum.YES);
+                        }
                     }
-                    else {
-                        songs.getIndex((i - 5) / 2).getData().addYes(hobby,
-                            major, region, HorLEnum.LIKED);
+                    else if (!params[i].equals("No")) {
+                        if (i % 2 == 1) {
+                            songs.getIndex((i - 5) / 2).getData().add(hobby,
+                                major, region, HorLEnum.HEARD, YorNEnum.NO);
+                        }
+                        else {
+                            songs.getIndex((i - 5) / 2).getData().add(hobby,
+                                major, region, HorLEnum.LIKED, YorNEnum.NO);
+                        }
                     }
                 }
             }
