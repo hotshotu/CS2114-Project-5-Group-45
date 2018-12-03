@@ -79,6 +79,8 @@ public class Song {
      *            The region to be added to
      * @param horl
      *            Whether the song was heard or liked
+     * @param yorn
+     *            whether the song response was yes or no
      */
     public void add(
         HobbyEnum hobbyE,
@@ -221,61 +223,52 @@ public class Song {
             case HEARD:
                 switch (majorE) {
                     case COMPSCI:
-                        switch (yorn) {
-                            case YES:
-                                major[0]++;
-                                numMReps[0]++;
-                                break;
-                            case NO:
-                                numMReps[0]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            major[0]++;
+                            numMReps[0]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numMReps[0]++;
+                            break;
+                        }
+
                     case OTHERENG:
-                        switch (yorn) {
-                            case YES:
-                                major[2]++;
-                                numMReps[2]++;
-                                break;
-                            case NO:
-                                numMReps[2]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            major[2]++;
+                            numMReps[2]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numMReps[2]++;
+                            break;
+
+                        }
+
                     case MATHCDMA:
-                        switch (yorn) {
-                            case YES:
-                                major[4]++;
-                                numMReps[4]++;
-                                break;
-                            case NO:
-                                numMReps[4]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            major[4]++;
+                            numMReps[4]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numMReps[4]++;
+                            break;
+
+                        }
+
                     case OTHER:
-                        switch (yorn) {
-                            case YES:
-                                major[6]++;
-                                numMReps[6]++;
-                                break;
-                            case NO:
-                                numMReps[6]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            major[6]++;
+                            numMReps[6]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numMReps[6]++;
+                            break;
+
+                        }
+
                     default:
                         throw new IllegalArgumentException(
                             "Invalid majorEnum pass to Song");
@@ -284,61 +277,53 @@ public class Song {
             case LIKED:
                 switch (majorE) {
                     case COMPSCI:
-                        switch (yorn) {
-                            case YES:
-                                major[1]++;
-                                numMReps[1]++;
-                                break;
-                            case NO:
-                                numMReps[1]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            major[1]++;
+                            numMReps[1]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numMReps[1]++;
+                            break;
+
+                        }
+
                     case OTHERENG:
-                        switch (yorn) {
-                            case YES:
-                                major[3]++;
-                                numMReps[3]++;
-                                break;
-                            case NO:
-                                numMReps[3]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            major[3]++;
+                            numMReps[3]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numMReps[3]++;
+                            break;
+
+                        }
+
                     case MATHCDMA:
-                        switch (yorn) {
-                            case YES:
-                                major[5]++;
-                                numMReps[5]++;
-                                break;
-                            case NO:
-                                numMReps[5]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            major[5]++;
+                            numMReps[5]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numMReps[5]++;
+                            break;
+
+                        }
+
                     case OTHER:
-                        switch (yorn) {
-                            case YES:
-                                major[7]++;
-                                numMReps[7]++;
-                                break;
-                            case NO:
-                                numMReps[7]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            major[7]++;
+                            numMReps[7]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numMReps[7]++;
+                            break;
+
+                        }
+
                     default:
                         throw new IllegalArgumentException(
                             "Invalid majorEnum pass to Song");
@@ -352,47 +337,41 @@ public class Song {
             case HEARD:
                 switch (regionE) {
                     case NEUS:
-                        switch (yorn) {
-                            case YES:
-                                region[0]++;
-                                numRReps[0]++;
-                                break;
-                            case NO:
-                                numRReps[0]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            region[0]++;
+                            numRReps[0]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numRReps[0]++;
+                            break;
+
+                        }
+
                     case SEUS:
-                        switch (yorn) {
-                            case YES:
-                                region[2]++;
-                                numRReps[2]++;
-                                break;
-                            case NO:
-                                numRReps[2]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            region[2]++;
+                            numRReps[2]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numRReps[2]++;
+                            break;
+
+                        }
+
                     case OTHERUS:
-                        switch (yorn) {
-                            case YES:
-                                region[4]++;
-                                numRReps[4]++;
-                                break;
-                            case NO:
-                                numRReps[4]++;
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                    "Invalid YorNEnum pass to Song");
+                        if (yorn.equals(YorNEnum.YES)) {
+                            region[4]++;
+                            numRReps[4]++;
+                            break;
                         }
-                        break;
+                        else {
+                            numRReps[4]++;
+                            break;
+
+                        }
+
                     case OUTSIDEUS:
                         switch (yorn) {
                             case YES:
@@ -482,8 +461,15 @@ public class Song {
     }
 
 
-    public int[] getNumResponse(RepresentationEnum RepE) {
-        switch (RepE) {
+    /**
+     * Gets the responses arrays
+     * 
+     * @param repE
+     *            Representation Enum, Hobby, Major, or Region
+     * @return the array of the number of each
+     */
+    public int[] getNumResponse(RepresentationEnum repE) {
+        switch (repE) {
             case HOBBY:
                 return numHReps;
             case MAJOR:
@@ -500,12 +486,12 @@ public class Song {
     /**
      * Getter method for the heard and liked numbers of a given representation
      * 
-     * @param RepE
+     * @param repE
      *            The representation to be returned
      * @return Returns the corresponding array
      */
-    public int[] getRepresentation(RepresentationEnum RepE) {
-        switch (RepE) {
+    public int[] getRepresentation(RepresentationEnum repE) {
+        switch (repE) {
             case HOBBY:
                 return hobby;
             case MAJOR:
@@ -556,5 +542,35 @@ public class Song {
      */
     public String getGenre() {
         return genre;
+    }
+
+
+    /**
+     * Getter method for getNumHRep
+     * 
+     * @return Returns getNumHRep
+     */
+    public int[] getNumHRep() {
+        return numHReps;
+    }
+
+
+    /**
+     * Getter method for getNumMRep
+     * 
+     * @return Returns getNumMRep
+     */
+    public int[] getNumMRep() {
+        return numMReps;
+    }
+
+
+    /**
+     * Getter method for getNumRReps
+     * 
+     * @return Returns getNumRReps
+     */
+    public int[] getNumRRep() {
+        return numRReps;
     }
 }

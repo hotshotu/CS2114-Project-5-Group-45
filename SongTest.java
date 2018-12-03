@@ -13,7 +13,7 @@ import student.TestCase;
 /**
  * Tests each method in Song
  * 
- * @author Ender Jaska (eljaska), Kenneth Ding (dkenny)
+ * @author Jeffrey Peng, Ender Jaska (eljaska), Kenneth Ding (dkenny)
  * @version 2018.11.29
  *
  */
@@ -40,24 +40,50 @@ public class SongTest extends TestCase {
         assertEquals(0, song.getYear());
         assertEquals("C", song.getGenre());
 
-        song.addYes(HobbyEnum.READ, MajorEnum.COMPSCI, RegionEnum.NEUS,
-            HorLEnum.HEARD);
-        song.addYes(HobbyEnum.READ, MajorEnum.COMPSCI, RegionEnum.NEUS,
-            HorLEnum.LIKED);
-        song.addYes(HobbyEnum.ART, MajorEnum.OTHERENG, RegionEnum.SEUS,
-            HorLEnum.HEARD);
-        song.addYes(HobbyEnum.ART, MajorEnum.OTHERENG, RegionEnum.SEUS,
-            HorLEnum.LIKED);
-        song.addYes(HobbyEnum.SPORTS, MajorEnum.MATHCDMA, RegionEnum.OTHERUS,
-            HorLEnum.HEARD);
-        song.addYes(HobbyEnum.SPORTS, MajorEnum.MATHCDMA, RegionEnum.OTHERUS,
-            HorLEnum.LIKED);
-        song.addYes(HobbyEnum.MUSIC, MajorEnum.OTHER, RegionEnum.OUTSIDEUS,
-            HorLEnum.HEARD);
-        song.addYes(HobbyEnum.MUSIC, MajorEnum.OTHER, RegionEnum.OUTSIDEUS,
-            HorLEnum.LIKED);
-
-        song.addYes(null, null, null, HorLEnum.LIKED);
+        song.add(HobbyEnum.READ, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.HEARD, YorNEnum.YES);
+        song.add(HobbyEnum.READ, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.HEARD, YorNEnum.NO);
+        song.add(HobbyEnum.READ, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.LIKED, YorNEnum.YES);
+        song.add(HobbyEnum.READ, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.LIKED, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.OTHERENG, RegionEnum.SEUS,
+            HorLEnum.HEARD, YorNEnum.YES);
+        song.add(HobbyEnum.ART, MajorEnum.OTHERENG, RegionEnum.SEUS,
+            HorLEnum.LIKED, YorNEnum.YES);
+        song.add(HobbyEnum.ART, MajorEnum.OTHERENG, RegionEnum.SEUS,
+            HorLEnum.LIKED, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.HEARD, YorNEnum.NO);
+        song.add(HobbyEnum.SPORTS, MajorEnum.MATHCDMA, RegionEnum.OTHERUS,
+            HorLEnum.HEARD, YorNEnum.YES);
+        song.add(HobbyEnum.MUSIC, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.HEARD, YorNEnum.NO);
+        song.add(HobbyEnum.SPORTS, MajorEnum.MATHCDMA, RegionEnum.OTHERUS,
+            HorLEnum.LIKED, YorNEnum.YES);
+        song.add(HobbyEnum.SPORTS, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.HEARD, YorNEnum.NO);
+        song.add(HobbyEnum.MUSIC, MajorEnum.OTHER, RegionEnum.OUTSIDEUS,
+            HorLEnum.HEARD, YorNEnum.YES);
+        song.add(HobbyEnum.MUSIC, MajorEnum.OTHER, RegionEnum.OUTSIDEUS,
+            HorLEnum.LIKED, YorNEnum.YES);
+        song.add(HobbyEnum.MUSIC, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.LIKED, YorNEnum.NO);
+        song.add(HobbyEnum.SPORTS, MajorEnum.COMPSCI, RegionEnum.NEUS,
+            HorLEnum.LIKED, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.OTHERENG, RegionEnum.OTHERUS,
+            HorLEnum.HEARD, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.MATHCDMA, RegionEnum.OTHERUS,
+            HorLEnum.HEARD, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.OTHER, RegionEnum.OTHERUS,
+            HorLEnum.HEARD, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.MATHCDMA, RegionEnum.OTHERUS,
+            HorLEnum.LIKED, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.OTHER, RegionEnum.OTHERUS,
+            HorLEnum.LIKED, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.OTHER, RegionEnum.SEUS,
+            HorLEnum.HEARD, YorNEnum.NO);
 
         int[] hobby = song.getRepresentation(RepresentationEnum.HOBBY);
         int[] major = song.getRepresentation(RepresentationEnum.MAJOR);
@@ -88,6 +114,10 @@ public class SongTest extends TestCase {
         assertEquals(1, region[6]);
         assertEquals(1, region[7]);
 
+        song.add(HobbyEnum.ART, MajorEnum.OTHER, RegionEnum.SEUS,
+            HorLEnum.HEARD, YorNEnum.NO);
+        song.add(HobbyEnum.ART, MajorEnum.OTHER, RegionEnum.SEUS,
+            HorLEnum.HEARD, YorNEnum.YES);
         try {
             song.getRepresentation(RepresentationEnum.DEF);
         }
@@ -96,69 +126,199 @@ public class SongTest extends TestCase {
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(HobbyEnum.READ, null, null, HorLEnum.DEF);
+            song.add(HobbyEnum.READ, null, null, HorLEnum.DEF, null);
         }
         catch (Exception e) {
             assertNotNull(e);
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(null, MajorEnum.COMPSCI, null, HorLEnum.DEF);
+            song.add(HobbyEnum.ART, MajorEnum.DEF, RegionEnum.OTHERUS,
+                HorLEnum.HEARD, YorNEnum.NO);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        try {
+            song.add(HobbyEnum.READ, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.HEARD, YorNEnum.DEF);
         }
         catch (Exception e) {
             assertNotNull(e);
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(null, null, RegionEnum.NEUS, HorLEnum.DEF);
+            song.add(HobbyEnum.ART, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.HEARD, YorNEnum.DEF);
         }
         catch (Exception e) {
             assertNotNull(e);
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(HobbyEnum.DEF, MajorEnum.COMPSCI, RegionEnum.NEUS,
-                HorLEnum.HEARD);
+            song.add(HobbyEnum.SPORTS, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.HEARD, YorNEnum.DEF);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        try {
+            song.add(HobbyEnum.MUSIC, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.HEARD, YorNEnum.DEF);
         }
         catch (Exception e) {
             assertNotNull(e);
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(HobbyEnum.DEF, MajorEnum.COMPSCI, RegionEnum.NEUS,
-                HorLEnum.LIKED);
+            song.add(HobbyEnum.ART, MajorEnum.DEF, RegionEnum.OTHERUS,
+                HorLEnum.LIKED, YorNEnum.DEF);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        try {
+            song.add(HobbyEnum.SPORTS, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.LIKED, YorNEnum.DEF);
         }
         catch (Exception e) {
             assertNotNull(e);
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(HobbyEnum.ART, MajorEnum.DEF, RegionEnum.NEUS,
-                HorLEnum.HEARD);
+            song.add(HobbyEnum.MUSIC, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.LIKED, YorNEnum.DEF);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        try {
+            song.add(HobbyEnum.READ, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.LIKED, YorNEnum.DEF);
         }
         catch (Exception e) {
             assertNotNull(e);
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(HobbyEnum.ART, MajorEnum.DEF, RegionEnum.NEUS,
-                HorLEnum.LIKED);
+            song.add(HobbyEnum.DEF, MajorEnum.COMPSCI, RegionEnum.DEF,
+                HorLEnum.HEARD, YorNEnum.DEF);
         }
         catch (Exception e) {
             assertNotNull(e);
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(HobbyEnum.ART, MajorEnum.COMPSCI, RegionEnum.DEF,
-                HorLEnum.HEARD);
+            song.add(HobbyEnum.ART, MajorEnum.OTHERENG, RegionEnum.OTHERUS,
+                HorLEnum.HEARD, YorNEnum.DEF);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+
+        try {
+            song.add(HobbyEnum.ART, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.LIKED, YorNEnum.DEF);
         }
         catch (Exception e) {
             assertNotNull(e);
             assertTrue(e instanceof IllegalArgumentException);
         }
         try {
-            song.addYes(HobbyEnum.ART, MajorEnum.COMPSCI, RegionEnum.DEF,
-                HorLEnum.LIKED);
+            song.add(null, MajorEnum.COMPSCI, null, HorLEnum.DEF, null);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            song.add(null, null, RegionEnum.NEUS, HorLEnum.DEF, null);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            song.add(HobbyEnum.DEF, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.HEARD, null);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            song.add(HobbyEnum.DEF, MajorEnum.COMPSCI, RegionEnum.NEUS,
+                HorLEnum.LIKED, null);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            song.add(HobbyEnum.DEF, MajorEnum.DEF, RegionEnum.DEF, HorLEnum.DEF,
+                YorNEnum.DEF);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            song.add(HobbyEnum.ART, MajorEnum.DEF, RegionEnum.NEUS,
+                HorLEnum.LIKED, YorNEnum.YES);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            song.add(HobbyEnum.ART, MajorEnum.COMPSCI, RegionEnum.OUTSIDEUS,
+                HorLEnum.HEARD, YorNEnum.NO);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            song.add(HobbyEnum.ART, MajorEnum.COMPSCI, RegionEnum.OUTSIDEUS,
+                HorLEnum.LIKED, YorNEnum.NO);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+        try {
+            song.add(HobbyEnum.ART, MajorEnum.COMPSCI, RegionEnum.OUTSIDEUS,
+                HorLEnum.HEARD, YorNEnum.DEF);
+        }
+        catch (Exception e) {
+            assertNotNull(e);
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
+
+
+    /**
+     * Tests getNumReponses
+     */
+    public void testGetNumResponses() {
+        Song song = new Song("A", "B", 0, "C");
+        assertEquals(song.getNumHRep(), song.getNumResponse(
+            RepresentationEnum.HOBBY));
+        assertEquals(song.getNumMRep(), song.getNumResponse(
+            RepresentationEnum.MAJOR));
+        assertEquals(song.getNumRRep(), song.getNumResponse(
+            RepresentationEnum.REGION));
+        try {
+            song.getNumResponse(RepresentationEnum.DEF);
         }
         catch (Exception e) {
             assertNotNull(e);

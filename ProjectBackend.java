@@ -227,7 +227,7 @@ public class ProjectBackend {
                     for (int j = i; j < songs.size(); j++) {
                         String compared = songs.getIndex(j).getData()
                             .getGenre();
-                        if (original.compareTo(compared) > 0) {
+                        if (original.compareToIgnoreCase(compared) > 0) {
                             original = compared;
                             tempInt = j;
                         }

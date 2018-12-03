@@ -22,8 +22,8 @@ public class GUIProjectWindow {
     private ProjectBackend backend;
     private int glyph1Num;
     private int glyph2Num;
-    private Glyph[] glyphs;
-    private Key key;
+    private GUIGlyph[] glyphs;
+    private GUIKey key;
     private Window window;
     private Button prev;
     private Button next;
@@ -42,18 +42,19 @@ public class GUIProjectWindow {
     public GUIProjectWindow(String[] args) throws FileNotFoundException {
         backend = new ProjectBackend(args);
         glyph1Num = 0;
-        if (backend.getNumReps() < 9) {
-            glyph2Num = backend.getNumReps();
+        if (backend.getSongs().size() < 9) {
+            glyph2Num = backend.getSongs().size();
         }
         else {
             glyph2Num = 9;
         }
-        glyphs = new Glyph[9];
+        glyphs = new GUIGlyph[9];
         for (int i = 0; i < glyph2Num; i++) {
-            glyphs[i] = new Glyph();
+            glyphs[i] = new GUIGlyph();
         }
-        key = new Key();
-        window = new Window(); 
+        key = new GUIKey();
+        window = new Window();
+
         prev = new Button("<-- Prev");
         prev.disable();
         next = new Button("Next -->");
@@ -96,10 +97,15 @@ public class GUIProjectWindow {
         window.addButton(quit, WindowSide.SOUTH);
         quit.onClick(this, "pressedQuit");
 
+        window.setTitle("Project 5 eljaska dkenny jeffp123");
+
         currentRep = RepresentationEnum.HOBBY;
-        currentSort = null;
+        currentSort = SortEnum.TITLE;
         pressedRepHobby(repHobby);
+        pressedSortGenre(sortGenre);
+        output();
         pressedSortTitle(sortTitle);
+        output();
     }
 
 
@@ -108,18 +114,30 @@ public class GUIProjectWindow {
      */
     public void display() {
         for (int i = 0; i < glyph2Num - glyph1Num; i++) {
-            if (i < 2) {
-                glyphs[i].displayGlyph(window, i * 100, 0);
+            if (i < 3) {
+                glyphs[i].displayGlyph(window, i * 200 + 130, 50);
             }
-            else if (i < 5) {
-                glyphs[i].displayGlyph(window, (i - 3) * 100, 100);
+            else if (i < 6) {
+                glyphs[i].displayGlyph(window, (i - 3) * 200 + 130, 200);
             }
             else {
-                glyphs[i].displayGlyph(window, (i - 6), 200);
+                glyphs[i].displayGlyph(window, (i - 6) * 200 + 130, 350);
             }
         }
         key.displayKey(window);
         window.repaint();
+    }
+
+
+    /**
+     * Updates the various glyphs and keys
+     */
+    public void update() {
+        for (int i = 0; i < glyph2Num - glyph1Num; i++) {
+            Song temp = backend.getSongs().getIndex(i + glyph1Num).getData();
+            glyphs[i].update(window, currentRep, currentSort, temp);
+        }
+        key.update(currentRep);
     }
 
 
@@ -130,16 +148,20 @@ public class GUIProjectWindow {
      *            Next button
      */
     public void pressedNext(Button button) {
-        if (glyph2Num + 9 < backend.getNumReps()) {
+        if (glyph2Num + 9 < backend.getSongs().size()) {
             glyph1Num += 9;
             glyph2Num += 9;
             prev.enable();
         }
-        else if (glyph1Num + 9 < backend.getNumReps()) {
+        else if (glyph1Num + 9 < backend.getSongs().size()) {
             glyph1Num += 9;
-            glyph2Num = backend.getNumReps();
+            glyph2Num = backend.getSongs().size();
             next.disable();
+            for (int i = glyph2Num - glyph1Num; i < 9; i++) {
+                glyphs[i].remove(window);
+            }
         }
+        update();
         display();
     }
 
@@ -151,7 +173,7 @@ public class GUIProjectWindow {
      *            Previous button
      */
     public void pressedPrev(Button button) {
-        if (glyph2Num == backend.getNumReps()) {
+        if (glyph2Num == backend.getSongs().size()) {
             glyph1Num -= 9;
             glyph2Num = glyph1Num + 9;
             next.enable();
@@ -166,6 +188,7 @@ public class GUIProjectWindow {
             glyph2Num -= 9;
             prev.disable();
         }
+        update();
         display();
     }
 
@@ -180,16 +203,16 @@ public class GUIProjectWindow {
         currentSort = SortEnum.TITLE;
         backend.sortSongs(currentSort);
         glyph1Num = 0;
-        if (backend.getNumReps() < 9) {
-            glyph2Num = backend.getNumReps();
+        prev.disable();
+        if (backend.getSongs().size() < 9) {
+            glyph2Num = backend.getSongs().size();
+            next.disable();
         }
         else {
             glyph2Num = 9;
+            next.enable();
         }
-        for (int i = 0; i < glyph2Num - glyph1Num; i++) {
-            glyphs[i].update(currentRep, backend.getSongs().getIndex(i
-                + glyph1Num).getData(), backend.getNumReps());
-        }
+        update();
         display();
     }
 
@@ -204,16 +227,16 @@ public class GUIProjectWindow {
         currentSort = SortEnum.ARTIST;
         backend.sortSongs(currentSort);
         glyph1Num = 0;
-        if (backend.getNumReps() < 9) {
-            glyph2Num = backend.getNumReps();
+        prev.disable();
+        if (backend.getSongs().size() < 9) {
+            glyph2Num = backend.getSongs().size();
+            next.disable();
         }
         else {
             glyph2Num = 9;
+            next.enable();
         }
-        for (int i = 0; i < glyph2Num - glyph1Num; i++) {
-            glyphs[i].update(currentRep, backend.getSongs().getIndex(i
-                + glyph1Num).getData(), backend.getNumReps());
-        }
+        update();
         display();
     }
 
@@ -228,16 +251,16 @@ public class GUIProjectWindow {
         currentSort = SortEnum.YEAR;
         backend.sortSongs(currentSort);
         glyph1Num = 0;
-        if (backend.getNumReps() < 9) {
-            glyph2Num = backend.getNumReps();
+        prev.disable();
+        if (backend.getSongs().size() < 9) {
+            glyph2Num = backend.getSongs().size();
+            next.disable();
         }
         else {
             glyph2Num = 9;
+            next.enable();
         }
-        for (int i = 0; i < glyph2Num - glyph1Num; i++) {
-            glyphs[i].update(currentRep, backend.getSongs().getIndex(i
-                + glyph1Num).getData(), backend.getNumReps());
-        }
+        update();
         display();
     }
 
@@ -252,16 +275,16 @@ public class GUIProjectWindow {
         currentSort = SortEnum.GENRE;
         backend.sortSongs(currentSort);
         glyph1Num = 0;
-        if (backend.getNumReps() < 9) {
-            glyph2Num = backend.getNumReps();
+        prev.disable();
+        if (backend.getSongs().size() < 9) {
+            glyph2Num = backend.getSongs().size();
+            next.disable();
         }
         else {
             glyph2Num = 9;
+            next.enable();
         }
-        for (int i = 0; i < glyph2Num - glyph1Num; i++) {
-            glyphs[i].update(currentRep, backend.getSongs().getIndex(i
-                + glyph1Num).getData(), backend.getNumReps());
-        }
+        update();
         display();
     }
 
@@ -274,11 +297,7 @@ public class GUIProjectWindow {
      */
     public void pressedRepHobby(Button button) {
         currentRep = RepresentationEnum.HOBBY;
-        for (int i = 0; i < glyph2Num - glyph1Num; i++) {
-            glyphs[i].update(currentRep, backend.getSongs().getIndex(i
-                + glyph1Num).getData(), backend.getNumReps());
-        }
-        key.update(currentRep);
+        update();
         display();
     }
 
@@ -291,11 +310,7 @@ public class GUIProjectWindow {
      */
     public void pressedRepMajor(Button button) {
         currentRep = RepresentationEnum.MAJOR;
-        for (int i = 0; i < glyph2Num - glyph1Num; i++) {
-            glyphs[i].update(currentRep, backend.getSongs().getIndex(i
-                + glyph1Num).getData(), backend.getNumReps());
-        }
-        key.update(currentRep);
+        update();
         display();
     }
 
@@ -308,15 +323,11 @@ public class GUIProjectWindow {
      */
     public void pressedRepRegion(Button button) {
         currentRep = RepresentationEnum.REGION;
-        for (int i = 0; i < glyph2Num - glyph1Num; i++) {
-            glyphs[i].update(currentRep, backend.getSongs().getIndex(i
-                + glyph1Num).getData(), backend.getNumReps());
-        }
-        key.update(currentRep);
+        update();
         display();
     }
 
- 
+
     /**
      * Quits the program
      * 
@@ -329,22 +340,41 @@ public class GUIProjectWindow {
 
 
     /**
-     * Gets the next and previous buttons, used for testing
-     * 
-     * @return Returns the next and previous buttons
+     * Responsible for outputing the correct songs
      */
-    public Button[] getNPButtons() {
+    private void output() {
+        for (int i = 0; i < backend.getSongs().size(); i++) {
+            System.out.println("song title " + backend.getSongs().getIndex(i)
+                .getData().getTitle());
+            System.out.println("song artist " + backend.getSongs().getIndex(i)
+                .getData().getArtist());
+            System.out.println("song genre " + backend.getSongs().getIndex(i)
+                .getData().getGenre());
+            System.out.println("song year " + backend.getSongs().getIndex(i)
+                .getData().getYear());
 
-        Button[] temp = new Button[9];
-        temp[0] = next;
-        temp[1] = prev;
-//        temp[2] = quit;
-//        temp[3] = repMajor;
-//        temp[4] = repHobby;
-//        temp[5] = sortGenre;
-//        temp[6] = sortYear;
-//        temp[7] = sortTitle;
-//        temp[8] = sortArtist;
-        return temp;
+            Song temp = backend.getSongs().getIndex(i).getData();
+
+            System.out.println("heard");
+            System.out.print("reading" + (int)(100.0 * temp.getRepresentation(
+                currentRep)[0] / temp.getNumResponse(currentRep)[0]));
+            System.out.print(" art" + (int)(100.0 * temp.getRepresentation(
+                currentRep)[2] / temp.getNumResponse(currentRep)[2]));
+            System.out.print(" sports" + (int)(100.0 * temp.getRepresentation(
+                currentRep)[4] / temp.getNumResponse(currentRep)[4]));
+            System.out.println(" music" + (int)(100.0 * temp.getRepresentation(
+                currentRep)[6] / temp.getNumResponse(currentRep)[6]));
+
+            System.out.println("likes");
+            System.out.print("reading" + (int)(100.0 * temp.getRepresentation(
+                currentRep)[1] / temp.getNumResponse(currentRep)[1]));
+            System.out.print(" art" + (int)(100.0 * temp.getRepresentation(
+                currentRep)[3] / temp.getNumResponse(currentRep)[3]));
+            System.out.print(" sports" + (int)(100.0 * temp.getRepresentation(
+                currentRep)[5] / temp.getNumResponse(currentRep)[5]));
+            System.out.println(" music" + (int)(100.0 * temp.getRepresentation(
+                currentRep)[7] / temp.getNumResponse(currentRep)[7]));
+            System.out.println("");
+        }
     }
 }

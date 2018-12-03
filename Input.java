@@ -34,6 +34,6 @@ public class Input {
         else {
             temp = args;
         }
-        new ProjectWindowGUI(temp);
+        new GUIProjectWindow(temp);
     }
 }
